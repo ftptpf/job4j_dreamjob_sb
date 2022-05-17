@@ -17,6 +17,12 @@ public class Post {
         this.name = name;
     }
 
+    public Post(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public Post(int id, String name, String description, LocalDateTime created) {
         this.id = id;
         this.name = name;

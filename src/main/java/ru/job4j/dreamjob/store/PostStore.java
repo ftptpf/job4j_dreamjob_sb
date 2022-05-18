@@ -35,6 +35,7 @@ public class PostStore {
     public void add(Post post) {
         if (post.getId() == 0) {
             post.setId(POST_ID.incrementAndGet());
+            post.setCreated(LocalDateTime.now());
         }
         posts.put(post.getId(), post);
     }

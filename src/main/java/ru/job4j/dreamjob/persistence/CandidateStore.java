@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.persistence;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 
 import java.time.LocalDateTime;
@@ -8,8 +9,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Repository
 public class CandidateStore {
-    private static final CandidateStore INST = new CandidateStore();
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private static final AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
 
@@ -17,10 +18,6 @@ public class CandidateStore {
         candidates.put(1, new Candidate(1, "Сергей", "JAVA, SQL, Spring", LocalDateTime.now()));
         candidates.put(2, new Candidate(2, "Виктор", "PM", LocalDateTime.now()));
         candidates.put(3, new Candidate(3, "Ольга", "менеджер", LocalDateTime.now()));
-    }
-
-    public static CandidateStore instOf() {
-        return INST;
     }
 
     public Collection<Candidate> findAll() {
@@ -42,5 +39,4 @@ public class CandidateStore {
     public void update(Candidate candidate) {
         add(candidate);
     }
-
 }

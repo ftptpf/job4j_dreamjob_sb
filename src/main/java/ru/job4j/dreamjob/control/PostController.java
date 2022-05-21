@@ -39,8 +39,8 @@ public class PostController {
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
         int cityId = post.getCity().getId();
-        String cityNameFromBase = cities.findById(cityId).getName();
-        post.setCity(new City(cityId, cityNameFromBase));
+        City city = cities.findById(cityId);
+        post.setCity(city);
         service.add(post);
         return "redirect:/posts";
     }
@@ -48,8 +48,8 @@ public class PostController {
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post) {
         int cityId = post.getCity().getId();
-        String cityNameFromBase = cities.findById(cityId).getName();
-        post.setCity(new City(cityId, cityNameFromBase));
+        City city = cities.findById(cityId);
+        post.setCity(city);
         service.update(post);
         return "redirect:/posts";
     }

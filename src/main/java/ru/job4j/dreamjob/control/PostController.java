@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.service.PostService;
@@ -37,12 +38,18 @@ public class PostController {
 
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
+        int cityId = post.getCity().getId();
+        String cityNameFromBase = cities.findById(cityId).getName();
+        post.setCity(new City(cityId, cityNameFromBase));
         service.add(post);
         return "redirect:/posts";
     }
 
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post) {
+        int cityId = post.getCity().getId();
+        String cityNameFromBase = cities.findById(cityId).getName();
+        post.setCity(new City(cityId, cityNameFromBase));
         service.update(post);
         return "redirect:/posts";
     }

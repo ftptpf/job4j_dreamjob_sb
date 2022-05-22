@@ -15,11 +15,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CandidateStore {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private static final AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
+    private final byte[] emptyImg = new byte[128];
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(1, "Сергей", "JAVA, SQL, Spring", LocalDateTime.now()));
-        candidates.put(2, new Candidate(2, "Виктор", "PM", LocalDateTime.now()));
-        candidates.put(3, new Candidate(3, "Ольга", "менеджер", LocalDateTime.now()));
+        candidates.put(1, new Candidate(1, "Сергей", "JAVA, SQL, Spring", LocalDateTime.now(), emptyImg));
+        candidates.put(2, new Candidate(2, "Виктор", "PM", LocalDateTime.now(), emptyImg));
+        candidates.put(3, new Candidate(3, "Ольга", "менеджер", LocalDateTime.now(), emptyImg));
     }
 
     public Collection<Candidate> findAll() {

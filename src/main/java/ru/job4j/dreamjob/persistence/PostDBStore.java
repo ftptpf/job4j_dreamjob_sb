@@ -2,6 +2,7 @@ package ru.job4j.dreamjob.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.stereotype.Repository;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
 import java.sql.Connection;
@@ -29,7 +30,11 @@ public class PostDBStore {
                 while (it.next()) {
                     posts.add(new Post(
                             it.getInt("id"),
-                            it.getString("name")));
+                            it.getString("name"),
+                            it.getString("description"),
+                            it.getTimestamp("created").toLocalDateTime(),
+                            it.getBoolean("visible"),
+                            new City(it.getInt("city_id"), "no name")));
                 }
             }
         } catch (Exception e) {
@@ -46,7 +51,11 @@ public class PostDBStore {
                 while (it.next()) {
                     return new Post(
                             it.getInt("id"),
-                            it.getString("name"));
+                            it.getString("name"),
+                            it.getString("description"),
+                            it.getTimestamp("created").toLocalDateTime(),
+                            it.getBoolean("visible"),
+                            new City(it.getInt("city_id"), "no name"));
                 }
             }
         } catch (Exception e) {
@@ -58,7 +67,7 @@ public class PostDBStore {
     public Post add(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "INSERT INTO post(name, description, created, visible, city_id) VALUES (?, ?, ?, ?)",
+                     "INSERT INTO post(name, description, created, visible, city_id) VALUES (?, ?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());

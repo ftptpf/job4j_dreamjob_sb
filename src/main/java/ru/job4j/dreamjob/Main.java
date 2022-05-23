@@ -32,6 +32,9 @@ public class Main {
         return cfg;
     }
 
+    /** Активируем пул соединений с базой
+     * @return пул
+     */
     @Bean
     public BasicDataSource loadPool() {
         Properties cfg = loadDbProperties();

@@ -25,7 +25,7 @@ public class PostDBStore {
     public Collection<Post> findAll() {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM post")) {
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM post ORDER BY id")) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     posts.add(new Post(

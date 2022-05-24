@@ -24,7 +24,7 @@ public class CandidateDbStore {
     public Collection<Candidate> findAll() {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate")) {
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate ORDER BY id")) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     candidates.add(new Candidate(

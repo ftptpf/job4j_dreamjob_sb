@@ -16,7 +16,7 @@ public class PostDBStoreTest {
     private final Post postOne = new Post(0, "Java Job", "Spring Boot", LocalDateTime.now(), true, cityOne);
     private final Post postTwo = new Post(0, "QA", "Automations", LocalDateTime.now(), false, cityTwo);
 
-      @Test
+    @Test
     public void whenCreatePostAndFindItById() {
         PostDBStore store = new PostDBStore(new Main().loadPool());
         store.add(postOne);

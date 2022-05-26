@@ -89,4 +89,14 @@ public class CandidateDbStore {
             e.printStackTrace();
         }
     }
+
+    public void deleteAll() {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "DELETE FROM candidate")) {
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

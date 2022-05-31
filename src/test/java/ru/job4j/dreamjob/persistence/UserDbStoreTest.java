@@ -7,8 +7,6 @@ import ru.job4j.dreamjob.model.User;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
-
 public class UserDbStoreTest {
     private final User userOne = new User("mail@mail.ru", "password_1");
     private final User userTwo = new User("mail@mail.ru", "password_2");
@@ -23,7 +21,7 @@ public class UserDbStoreTest {
     }
 
     @Test
-    public void whenCreateUsersWithSameEmails() {
+    public void whenCreateUsersWithSameEmailAndHaveConstraintException() {
         UserDbStore store = new UserDbStore(new Main().loadPool());
         try {
             store.add(userOne);

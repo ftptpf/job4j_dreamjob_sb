@@ -24,7 +24,13 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String getPageRegistration() {
+    public String getPageRegistration(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "registration";
     }
 
@@ -39,12 +45,24 @@ public class UserController {
     }
 
     @GetMapping("/fail")
-    public String failRegistration() {
+    public String failRegistration(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "fail";
     }
 
     @GetMapping("/success")
-    public String successRegistration() {
+    public String successRegistration(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            user = new User();
+            user.setName("Гость");
+        }
+        model.addAttribute("user", user);
         return "success";
     }
 

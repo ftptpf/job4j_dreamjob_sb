@@ -18,6 +18,10 @@ public class UserService {
         return store.findUserByEmail(email);
     }
 
+    public User findUserByEmailAndPwd(String email, String password) {
+        return store.findUserByEmailAndPwd(email, password);
+    }
+
     public User add(User user) {
         return store.add(user);
     }

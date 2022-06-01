@@ -35,6 +35,26 @@ public class UserDbStore {
         return null;
     }
 
+    public User findUserByEmailAndPwd(String email, String password) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?")) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    return new User(
+                            it.getInt("id"),
+                            it.getString("email"),
+                            it.getString("password")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public User add(User user) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)",

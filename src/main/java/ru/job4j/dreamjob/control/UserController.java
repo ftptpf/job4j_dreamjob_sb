@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
+import ru.job4j.dreamjob.util.UserUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,12 +26,7 @@ public class UserController {
 
     @GetMapping("/registration")
     public String getPageRegistration(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        UserUtil.checkAndSetGuestName(model, session);
         return "registration";
     }
 
@@ -46,23 +42,13 @@ public class UserController {
 
     @GetMapping("/fail")
     public String failRegistration(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        UserUtil.checkAndSetGuestName(model, session);
         return "fail";
     }
 
     @GetMapping("/success")
     public String successRegistration(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        model.addAttribute("user", user);
+        UserUtil.checkAndSetGuestName(model, session);
         return "success";
     }
 

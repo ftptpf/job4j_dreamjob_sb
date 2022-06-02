@@ -7,6 +7,7 @@ import ru.job4j.dreamjob.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Optional;
 
 @Repository
 public class UserDbStore {
@@ -16,23 +17,23 @@ public class UserDbStore {
         this.pool = pool;
     }
 
-    public User findUserByEmail(String email) {
+    public Optional<User> findUserByEmail(String email) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM users WHERE email = ?")) {
             ps.setString(1, email);
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    return new User(
+                    return Optional.of(new User(
                             it.getInt("id"),
                             it.getString("email"),
                             it.getString("password")
-                    );
+                    ));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return Optional.empty();
     }
 
     public User findUserByEmailAndPwd(String email, String password) {
@@ -55,7 +56,7 @@ public class UserDbStore {
         return null;
     }
 
-    public User add(User user) {
+    public Optional<User> add(User user) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO users (email, password) VALUES (?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -67,10 +68,11 @@ public class UserDbStore {
                     user.setId(it.getInt("id"));
                 }
             }
+            return Optional.of(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return user;
+        return Optional.empty();
     }
 
     public void deleteAll() {

@@ -15,7 +15,7 @@ public class UserDbStoreTest {
     public void whenCreateUserAndFindItByEmail() {
         UserDbStore store = new UserDbStore(new Main().loadPool());
         store.add(userOne);
-        User userInDb = store.findUserByEmail(userOne.getEmail());
+        User userInDb = store.findUserByEmail(userOne.getEmail()).get();
         assertThat(userInDb.getEmail(), is(userOne.getEmail()));
         store.deleteAll();
     }

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.persistence.UserDbStore;
 
+import java.util.Optional;
+
 @Service
 @ThreadSafe
 public class UserService {
@@ -14,7 +16,7 @@ public class UserService {
         this.store = store;
     }
 
-    public User findUserByEmail(String email) {
+    public Optional<User> findUserByEmail(String email) {
         return store.findUserByEmail(email);
     }
 
@@ -22,7 +24,7 @@ public class UserService {
         return store.findUserByEmailAndPwd(email, password);
     }
 
-    public User add(User user) {
+    public Optional<User> add(User user) {
         return store.add(user);
     }
 }

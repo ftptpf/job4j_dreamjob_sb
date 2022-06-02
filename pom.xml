@@ -93,6 +93,13 @@
 			<version>4.6.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.bytebuddy</groupId>
+			<artifactId>byte-buddy</artifactId>
+			<version>1.12.10</version>
+		</dependency>
+
+
 
 	</dependencies>
 

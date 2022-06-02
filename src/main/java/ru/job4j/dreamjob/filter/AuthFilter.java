@@ -11,7 +11,7 @@ import java.io.IOException;
 public class AuthFilter implements Filter {
 
     /**
-     * Фильтр. Если запрос идет к странице login - мы этот запрос пропускаем сразу.
+     * Фильтр. Если запрос идет к странице login или registration - мы этот запрос пропускаем сразу.
      * Если запросы идут к другим страницам, проверяем наличие пользователя в HttpSession,
      * если его там нет - перенаправляем на страницу авторизации.
      * @param request
@@ -28,7 +28,7 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String uri = req.getRequestURI();
-        if (uri.endsWith("login")) {
+        if (uri.endsWith("login") || uri.endsWith("registration")) {
             chain.doFilter(req, res);
             return;
         }

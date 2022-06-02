@@ -20,7 +20,7 @@ public class UserService {
         return store.findUserByEmail(email);
     }
 
-    public User findUserByEmailAndPwd(String email, String password) {
+    public Optional<User> findUserByEmailAndPwd(String email, String password) {
         return store.findUserByEmailAndPwd(email, password);
     }
 

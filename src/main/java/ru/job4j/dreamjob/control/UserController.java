@@ -74,9 +74,8 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest req) {
-        Optional<User> userDb = Optional.ofNullable(
-                service.findUserByEmailAndPwd(
-                        user.getEmail(), user.getPassword()));
+        Optional<User> userDb = service.findUserByEmailAndPwd(
+                        user.getEmail(), user.getPassword());
         if (userDb.isEmpty()) {
             return "redirect:/login?fail=true";
         }
